@@ -23,7 +23,7 @@ const Signup = () => {
             });
 
             console.log(user);
-            navigate('/login');
+            // navigate('/login');
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;

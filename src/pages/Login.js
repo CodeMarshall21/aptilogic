@@ -3,41 +3,52 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import  {app,auth,db}  from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-
+import { useEffect } from 'react';
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const[role,setRole]=useState('')
+
+
+    useEffect(() => {
+        // Use effect to watch for changes in the role state
+        if (role) { // Ensure role is not null
+            switch (role) {
+                case 'Student':
+                    navigate('/student-dashboard');
+                    break;
+                case 'Aptitude Trainer':
+                    navigate('/trainer-dashboard');
+                    break;
+                case 'Class Mentor':
+                    navigate('/mentor-dashboard');
+                    break;
+                default:
+                    break;
+            }
+        }
+    }, [role]);
+
 
     const onLogin = async (e) => {
         e.preventDefault();
         try {
-            const docRef = doc(db, "users", "SF")
-            
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            console.log(userCredential)
             const user = userCredential.user;
-            console.log(user)
-            // Retrieve user role from Firestore
-            const q = query(collection(db, 'users'), where('uid', '==', user.uid));
-            console.log("asdfghj")
+
+            const q = query(collection(db, 'users'));
             const querySnapshot = await getDocs(q);
-            console.log("hrllo",querySnapshot)
-            const docSnap = await getDoc(docRef);
-
-if (docSnap.exists()) {
-  console.log("Document data:", docSnap.data());
-} else {
-  // docSnap.data() will be undefined in this case
-  console.log("No such document!");
-}
-            querySnapshot.docs.forEach((doc) => {
-                console.log("docd:",doc)
-                const role = doc.data().role;
-                console.log("role:",role)
-
-                // Redirect user based on role
+       
+    
+            querySnapshot.forEach((doc) => {
+                console.log(doc.data(),doc.id)
+                if( doc.id==user.uid){
+                    setRole(doc.data().role);
+                }
+                console.log(role)})
                 switch (role) {
+
                     case 'Student':
                         navigate('/student-dashboard');
                         break;
@@ -50,13 +61,15 @@ if (docSnap.exists()) {
                     default:
                         break;
                 }
-            });
+                
+            
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.error(errorCode, errorMessage);
         }
     }
+    
 
     return (
         <main>

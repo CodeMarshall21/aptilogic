@@ -1,77 +1,110 @@
 import React, { useState } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase'; // Assuming db is the initialized Firestore instance
 
-const AssessmentCreation = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [questions, setQuestions] = useState([]);
+const TrainerAssessment = () => {
+    const [questions, setQuestions] = useState([]);
+    const [assessmentDetails, setAssessmentDetails] = useState({
+        title: '',
+        description: ''
+    });
 
-  const addQuestion = () => {
-    const newQuestion = { question: '', options: ['', '', '', ''], correctAnswer: '' };
-    setQuestions([...questions, newQuestion]);
-  };
+    const addQuestion = () => {
+        const newQuestion = {
+            questionText: '',
+            options: ['', '', '', ''],
+            correctAnswer: '',
+            topic: ''
+        };
+        setQuestions([...questions, newQuestion]);
+    };
 
-  const handleQuestionChange = (index, e) => {
-    const newQuestions = [...questions];
-    newQuestions[index].question = e.target.value;
-    setQuestions(newQuestions);
-  };
+    const saveAssessment = async () => {
+        try {
+            const assessmentRef = await addDoc(collection(db, 'assessments'), {
+                title: assessmentDetails.title,
+                description: assessmentDetails.description
+            });
 
-  const handleOptionChange = (questionIndex, optionIndex, e) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].options[optionIndex] = e.target.value;
-    setQuestions(newQuestions);
-  };
+            questions.forEach(async (question) => {
+                await addDoc(collection(assessmentRef, 'questions'), {
+                    questionText: question.questionText,
+                    options: question.options,
+                    correctAnswer: question.correctAnswer,
+                    topic: question.topic
+                });
+            });
 
-  const handleCorrectAnswerChange = (questionIndex, e) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].correctAnswer = e.target.value;
-    setQuestions(newQuestions);
-  };
+            console.log('Assessment created successfully');
+        } catch (error) {
+            console.error('Error creating assessment: ', error);
+        }
+    };
 
-  const saveAssessment = () => {
-    // Implement saving assessment logic here
-    console.log('Assessment Title:', title);
-    console.log('Assessment Description:', description);
-    console.log('Assessment Questions:', questions);
-  };
-
-  return (
-    <div>
-      <h2>Create Assessment</h2>
-      <label>Title:</label>
-      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-      <label>Description:</label>
-      <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-      <button onClick={addQuestion}>Add Question</button>
-      {questions.map((question, index) => (
-        <div key={index}>
-          <label>Question {index + 1}:</label>
-          <input type="text" value={question.question} onChange={(e) => handleQuestionChange(index, e)} required />
-          <br />
-          {question.options.map((option, optionIndex) => (
-            <div key={optionIndex}>
-              <label>Option {optionIndex + 1}:</label>
-              <input
+    return (
+        <div>
+            <input
                 type="text"
-                value={option}
-                onChange={(e) => handleOptionChange(index, optionIndex, e)}
-                required
-              />
-            </div>
-          ))}
-          <label>Correct Answer:</label>
-          <input
-            type="text"
-            value={question.correctAnswer}
-            onChange={(e) => handleCorrectAnswerChange(index, e)}
-            required
-          />
-          <br />
+                placeholder="Title"
+                value={assessmentDetails.title}
+                onChange={(e) => setAssessmentDetails({ ...assessmentDetails, title: e.target.value })}
+            />
+            <textarea
+                placeholder="Description"
+                value={assessmentDetails.description}
+                onChange={(e) => setAssessmentDetails({ ...assessmentDetails, description: e.target.value })}
+            />
+            {questions.map((question, index) => (
+                <div key={index}>
+                    <input
+                        type="text"
+                        placeholder="Question"
+                        value={question.questionText}
+                        onChange={(e) => {
+                            const newQuestions = [...questions];
+                            newQuestions[index].questionText = e.target.value;
+                            setQuestions(newQuestions);
+                        }}
+                    />
+                    {question.options.map((option, optionIndex) => (
+                        <input
+                            key={optionIndex}
+                            type="text"
+                            placeholder={`Option ${optionIndex + 1}`}
+                            value={option}
+                            onChange={(e) => {
+                                const newQuestions = [...questions];
+                                newQuestions[index].options[optionIndex] = e.target.value;
+                                setQuestions(newQuestions);
+                            }}
+                        />
+                    ))}
+                    <input
+                        type="text"
+                        placeholder="Correct Answer"
+                        value={question.correctAnswer}
+                        onChange={(e) => {
+                            const newQuestions = [...questions];
+                            newQuestions[index].correctAnswer = e.target.value;
+                            setQuestions(newQuestions);
+                        }}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Topic"
+                        value={question.topic}
+                        onChange={(e) => {
+                            const newQuestions = [...questions];
+                            newQuestions[index].topic = e.target.value;
+                            setQuestions(newQuestions);
+                        }}
+                    />
+                </div>
+            ))}
+            <button onClick={addQuestion}>Add Question</button>
+            <button onClick={saveAssessment}>Save Assessment</button>
         </div>
-      ))}
-      <button onClick={saveAssessment}>Save Assessment</button>
-    </div>
-  );
+    );
 };
 
-export default AssessmentCreation;
+export default TrainerAssessment;
