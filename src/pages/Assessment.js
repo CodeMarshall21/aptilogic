@@ -63,15 +63,25 @@ const Assessment = () => {
             }
         });
         setScore(totalScore);
+        const userRef = doc(db, 'users', auth.currentUser.uid);
+    const userDocSnapshot = await getDoc(userRef);
+    if (!userDocSnapshot.exists()) {
+        console.error('User not found with ID:', auth.currentUser.uid);
+        return;
+    }
+    const userData = userDocSnapshot.data();
+    const username = userData.username;
         const scoreData = {
+            username: username,
             userId: auth.currentUser.uid,
             assessmentId: assessment.id,
             score: score,
+
         };
         await addDoc(collection(db, 'scores'), scoreData);
 
         // Update user's scores array in Firestore
-        const userRef = doc(db, 'users', auth.currentUser.uid);
+        // const userRef = doc(db, 'users', auth.currentUser.uid);
         await updateDoc(userRef, { scores: arrayUnion(scoreData) });
 
         setIsSubmitted(true);

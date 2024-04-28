@@ -7,18 +7,26 @@ import TrainerDashboard from './pages/TrainerDashboard';
 import AssessmentCreation from './pages/AssessmentCreation';
 import StudentDashboard from './pages/Student';
 import Assessment from './pages/Assessment'; // Import your Assessment component
+import { UserProvider } from './pages/UserContext';
+import MentorDashboard from './pages/MentorDashboard';
 
 function App() {
     return (
+        <UserProvider>
+
         <BrowserRouter>
             <Routes>
                 <Route index element={<Home />} />
                 <Route path="trainer-dashboard" element={<TrainerDashboard />} />
                 <Route path="student-dashboard" element={<StudentDashboard />} />
+                <Route path="mentor-dashboard" element={<MentorDashboard/>} />
+
                 <Route path="student-dashboard/:assessmentId" element={<Assessment />} />
                 <Route path="create-assessment" element={<AssessmentCreation />} />
             </Routes>
         </BrowserRouter>
+        </UserProvider>
+
     );
 }
 

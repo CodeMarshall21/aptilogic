@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import  {app,auth,db}  from '../firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs,doc,getDoc } from 'firebase/firestore';
 import { useEffect } from 'react';
+import { useUser } from './UserContext';
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { setUser } = useUser();
     const[role,setRole]=useState('')
 
 
@@ -36,17 +38,28 @@ const Login = () => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-
+            // setUser(user);
             const q = query(collection(db, 'users'));
             const querySnapshot = await getDocs(q);
        
-    
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              console.log("user",userData)
+              setUser(userData); // Set user data in context
+              // Redirect to dashboard
+            } else {
+              console.error('User data not found');
+            }
+
             querySnapshot.forEach((doc) => {
                 console.log(doc.data(),doc.id)
                 if( doc.id==user.uid){
                     setRole(doc.data().role);
                 }
-                console.log(role)})
+                // console.log(doc.data())
+            })
+                
                 switch (role) {
 
                     case 'Student':

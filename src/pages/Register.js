@@ -8,6 +8,8 @@ const Signup = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
+
     const [role, setRole] = useState('Student'); // Default role is Student
 
     const onSubmit = async (e) => {
@@ -19,7 +21,9 @@ const Signup = () => {
 
             // Store user role in Firestore
             await setDoc(doc(db, 'users', user.uid), {
-                role: role
+                
+                role: role,
+                username:username
             });
 
             console.log(user);
@@ -61,7 +65,18 @@ const Signup = () => {
                                 placeholder="Password"
                             />
                         </div>
-
+                        <div>
+                            <label htmlFor="username">
+                                Username
+                            </label>
+                            <input
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                                placeholder="Name"
+                            />
+                        </div>
                         <div>
                             <label htmlFor="role">
                                 Role
