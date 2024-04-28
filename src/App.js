@@ -10,9 +10,9 @@ import Assessment from './pages/Assessment'; // Import your Assessment component
 import { UserProvider } from './pages/UserContext';
 import MentorDashboard from './pages/MentorDashboard';
 import Analytics from './pages/Analytics';
-
 function App() {
     return (
+        <div className='cntainer'>
         <UserProvider>
 
         <BrowserRouter>
@@ -28,7 +28,7 @@ function App() {
             </Routes>
         </BrowserRouter>
         </UserProvider>
-
+        </div>
     );
 }
 

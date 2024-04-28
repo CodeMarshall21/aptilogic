@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase'; // Assuming db is the initialized Firestore instance
+import { Button, TextField, Typography, Box } from '@mui/material';
 
 const TrainerAssessment = () => {
     const [questions, setQuestions] = useState([]);
@@ -42,23 +43,39 @@ const TrainerAssessment = () => {
     };
 
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Title"
+        <Box display="flex" flexDirection="column" alignItems="center">
+            <Typography variant="h4" gutterBottom>
+                Trainer Assessment
+            </Typography>
+            <TextField
+                label="Title"
+                variant="outlined"
+                margin="normal"
+                fullWidth
                 value={assessmentDetails.title}
                 onChange={(e) => setAssessmentDetails({ ...assessmentDetails, title: e.target.value })}
             />
-            <textarea
-                placeholder="Description"
+            <TextField
+                label="Description"
+                variant="outlined"
+                margin="normal"
+                multiline
+                rows={4}
+                fullWidth
+              
                 value={assessmentDetails.description}
                 onChange={(e) => setAssessmentDetails({ ...assessmentDetails, description: e.target.value })}
             />
             {questions.map((question, index) => (
-                <div key={index}>
-                    <input
-                        type="text"
-                        placeholder="Question"
+                <Box key={index} border={1} borderRadius={5} padding={2} marginY={2}>
+                    <Typography variant="h6" gutterBottom>
+                        Question {index + 1}
+                    </Typography>
+                    <TextField
+                        label="Question Text"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
                         value={question.questionText}
                         onChange={(e) => {
                             const newQuestions = [...questions];
@@ -67,10 +84,12 @@ const TrainerAssessment = () => {
                         }}
                     />
                     {question.options.map((option, optionIndex) => (
-                        <input
+                        <TextField
                             key={optionIndex}
-                            type="text"
-                            placeholder={`Option ${optionIndex + 1}`}
+                            label={`Option ${optionIndex + 1}`}
+                            variant="outlined"
+                            margin="normal"
+                            fullWidth
                             value={option}
                             onChange={(e) => {
                                 const newQuestions = [...questions];
@@ -79,9 +98,11 @@ const TrainerAssessment = () => {
                             }}
                         />
                     ))}
-                    <input
-                        type="text"
-                        placeholder="Correct Answer"
+                    <TextField
+                        label="Correct Answer"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
                         value={question.correctAnswer}
                         onChange={(e) => {
                             const newQuestions = [...questions];
@@ -89,9 +110,11 @@ const TrainerAssessment = () => {
                             setQuestions(newQuestions);
                         }}
                     />
-                    <input
-                        type="text"
-                        placeholder="Topic"
+                    <TextField
+                        label="Topic"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
                         value={question.topic}
                         onChange={(e) => {
                             const newQuestions = [...questions];
@@ -99,11 +122,15 @@ const TrainerAssessment = () => {
                             setQuestions(newQuestions);
                         }}
                     />
-                </div>
+                </Box>
             ))}
-            <button onClick={addQuestion}>Add Question</button>
-            <button onClick={saveAssessment}>Save Assessment</button>
-        </div>
+            <Button variant="contained" onClick={addQuestion} style={{ marginBottom: 20 }}>
+                Add Question
+            </Button>
+            <Button variant="contained" color="primary" onClick={saveAssessment}>
+                Save Assessment
+            </Button>
+        </Box>
     );
 };
 

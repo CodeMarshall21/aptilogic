@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useUser } from './UserContext';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 const StudentDashboard = () => {
     const [assessments, setAssessments] = useState([]);
@@ -21,20 +26,49 @@ const StudentDashboard = () => {
 
     return (
         <div>
-            <h1>Welcome, {user ? user.username : 'Guest'}!</h1>
-            <h1>Available Assessments</h1>
+                    <Box display="flex" flexDirection="column" alignItems="center">
+
+            <Typography variant="h3" gutterBottom>
+                Welcome, {user ? user.username : 'Guest'}!
+            </Typography>
+            <Typography variant="h4" gutterBottom>
+                Available Assessments
+            </Typography>
+            </Box>
             <div>
                 {assessments.map(assessment => (
-                    <div key={assessment.id}>
-                        <h3>{assessment.title}</h3>
-                        <p>{assessment.description}</p>
-                        <Link to={`/student-dashboard/${assessment.id}`}>Attend Assessment</Link>
-                        {' '}
-                        <Link to={`/student-analytics/${assessment.id}`}>View Analytics</Link>
-                    </div>
+                    <Card key={assessment.id} variant="outlined" style={{ width: 300, margin: 10 }}>
+                        <CardContent>
+                            <Typography variant="h5" gutterBottom>
+                                {assessment.title}
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                {assessment.description}
+                            </Typography>
+                            <Button
+                                component={Link}
+                                to={`/student-dashboard/${assessment.id}`}
+                                variant="contained"
+                                color="primary"
+                                style={{ marginRight: 10 }}
+                            >
+                                Attend Assessment
+                            </Button>
+                            <Button
+                                component={Link}
+                                to={`/student-analytics/${assessment.id}`}
+                                variant="contained"
+                                color="secondary"
+                            >
+                                View Analytics
+                            </Button>
+                        </CardContent>
+                    </Card>
                 ))}
             </div>
+            
         </div>
+
     );
 };
 
