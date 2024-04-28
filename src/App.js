@@ -9,6 +9,7 @@ import StudentDashboard from './pages/Student';
 import Assessment from './pages/Assessment'; // Import your Assessment component
 import { UserProvider } from './pages/UserContext';
 import MentorDashboard from './pages/MentorDashboard';
+import Analytics from './pages/Analytics';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                 <Route path="trainer-dashboard" element={<TrainerDashboard />} />
                 <Route path="student-dashboard" element={<StudentDashboard />} />
                 <Route path="mentor-dashboard" element={<MentorDashboard/>} />
+                <Route path="student-analytics/:assessmentId" element={<Analytics/>} />
 
                 <Route path="student-dashboard/:assessmentId" element={<Assessment />} />
                 <Route path="create-assessment" element={<AssessmentCreation />} />

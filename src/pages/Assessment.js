@@ -44,48 +44,60 @@ const Assessment = () => {
         setSelectedAnswers(answers);
     };
 
-    const calculateScore = () => {
-        let totalScore = 0;
-        assessment.questions.forEach((question) => {
-            if (question.correctAnswer === selectedAnswers[question.id]) {
-                totalScore += 1; // Award 1 point for each correct answer
-            }
-        });
-        setScore(totalScore);
-    };
-
     const handleSubmit = async () => {
-        // Save the score to the database
         let totalScore = 0;
+        const topicScores = {};
+    
         assessment.questions.forEach((question) => {
-            if (question.correctAnswer === selectedAnswers[question.id]) {
-                totalScore += 1; // Award 1 point for each correct answer
+            const { id, topic, correctAnswer } = question;
+            const studentAnswer = selectedAnswers[id];
+            const isCorrect = studentAnswer === correctAnswer;
+    
+            if (!topicScores[topic]) {
+                topicScores[topic] = {
+                    totalQuestions: 1,
+                    correctAnswers: isCorrect ? 1 : 0,
+                    wrongAnswers: isCorrect ? 0 : 1,
+                };
+            } else {
+                topicScores[topic].totalQuestions++;
+                if (isCorrect) {
+                    topicScores[topic].correctAnswers++;
+                } else {
+                    topicScores[topic].wrongAnswers++;
+                }
+            }
+    
+            if (isCorrect) {
+                totalScore++;
             }
         });
+    
         setScore(totalScore);
+    
         const userRef = doc(db, 'users', auth.currentUser.uid);
-    const userDocSnapshot = await getDoc(userRef);
-    if (!userDocSnapshot.exists()) {
-        console.error('User not found with ID:', auth.currentUser.uid);
-        return;
-    }
-    const userData = userDocSnapshot.data();
-    const username = userData.username;
+        const userDocSnapshot = await getDoc(userRef);
+        if (!userDocSnapshot.exists()) {
+            console.error('User not found with ID:', auth.currentUser.uid);
+            return;
+        }
+        const userData = userDocSnapshot.data();
+        const username = userData.username;
+    
         const scoreData = {
             username: username,
             userId: auth.currentUser.uid,
             assessmentId: assessment.id,
-            score: score,
-
+            score: totalScore, // Use totalScore here
+            topicScores: topicScores,
         };
+    
         await addDoc(collection(db, 'scores'), scoreData);
-
-        // Update user's scores array in Firestore
-        // const userRef = doc(db, 'users', auth.currentUser.uid);
         await updateDoc(userRef, { scores: arrayUnion(scoreData) });
-
+    
         setIsSubmitted(true);
     };
+    
 
     if (!assessment) {
         return <div>Loading...</div>;
@@ -119,7 +131,6 @@ const Assessment = () => {
                             </ul>
                         </div>
                     ))}
-                    {/* <button onClick={calculateScore}>Calculate Score</button> */}
                     {score > 0 && <p>Score: {score}</p>}
                     <button onClick={handleSubmit}>Submit</button>
                     {isSubmitted && <p>Score submitted successfully!</p>}
