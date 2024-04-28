@@ -72,10 +72,15 @@ const MentorDashboard = () => {
         return { totalAttempts, averageScore };
     };
 
+    const closeAnalytics = () => {
+        setSelectedAssessmentId(null);
+        setSelectedAssessmentScores([]);
+    };
+
     return (
-        <div>
-            <h1>Mentor Dashboard</h1>
-            <table>
+        <div style={{ maxWidth: '800px', margin: 'auto', padding: '20px' }}>
+            <h1 style={{ textAlign: 'center' }}>Mentor Dashboard</h1>
+            <table style={{ width: '100%', marginBottom: '20px' }}>
                 <thead>
                     <tr>
                         <th>Assessment Title</th>
@@ -84,7 +89,7 @@ const MentorDashboard = () => {
                 </thead>
                 <tbody>
                     {assessments.map((assessment, index) => (
-                        <tr key={index}>
+                        <tr key={index} style={{ backgroundColor: selectedAssessmentId === assessment.id ? '#f0f0f0' : 'inherit' }}>
                             <td>{assessment.title}</td>
                             <td>
                                 <button onClick={() => { fetchStudentScores(); handleViewAnalytics(assessment.id); }}>View Analytics</button>
@@ -96,7 +101,8 @@ const MentorDashboard = () => {
             {selectedAssessmentId && (
                 <div>
                     <h2>Total Analytics for Assessment {selectedAssessmentId}</h2>
-                    <table>
+                    <button onClick={closeAnalytics}>Close</button>
+                    <table style={{ width: '100%' }}>
                         <thead>
                             <tr>
                                 <th>Student Name</th>
@@ -127,7 +133,7 @@ const MentorDashboard = () => {
                                                 return (
                                                     <div key={studentScore.userId}>
                                                         <p>Total Attempts: {totalAttempts}</p>
-                                                        <p>Average Score: {averageScore}</p>
+                                                        <p>Average Score: {averageScore.toFixed(2)}</p>
                                                     </div>
                                                 );
                                             }
