@@ -8,8 +8,8 @@ import { useUser } from './UserContext';
 const Analytics = () => {
     const { assessmentId } = useParams();
     const { user } = useUser();
-    console.log(assessmentId, user)
     const [assessmentScores, setAssessmentScores] = useState([]);
+    const [improvementTips, setImprovementTips] = useState({});
 
     useEffect(() => {
         const fetchAssessmentScores = async () => {
@@ -17,14 +17,43 @@ const Analytics = () => {
                 return;
             }
 
-            const q = query(collection(db, 'scores'), where('userId', '==', user.uid), where('assessmentId', '==', assessmentId));
+            let q = query(collection(db, 'scores'), where('userId', '==', user.uid)); // Only fetch scores for the current user
+            if (assessmentId) {
+                q = query(q, where('assessmentId', '==', assessmentId));
+            }
             const querySnapshot = await getDocs(q);
             const fetchedScores = querySnapshot.docs.map(doc => doc.data());
             setAssessmentScores(fetchedScores);
+
+            // Analyze scores and provide improvement tips
+            const tips = analyzeScores(fetchedScores);
+            setImprovementTips(tips);
         };
 
         fetchAssessmentScores();
     }, [user, assessmentId]);
+
+    const analyzeScores = (scores) => {
+        const tips = {};
+        scores.forEach(score => {
+            if (score.topicScores) {
+                Object.entries(score.topicScores).forEach(([topic, scores]) => {
+                    if (!tips[topic]) {
+                        tips[topic] = {
+                            strong: [],
+                            weak: []
+                        };
+                    }
+                    if (scores.correctAnswers / scores.totalQuestions >= 0.8) {
+                        tips[topic].strong.push(score.username);
+                    } else {
+                        tips[topic].weak.push(score.username);
+                    }
+                });
+            }
+        });
+        return tips;
+    };
 
     return (
         <div>
@@ -41,6 +70,12 @@ const Analytics = () => {
                             <p>Correct Answers: {scores.correctAnswers}</p>
                             <p>Wrong Answers: {scores.wrongAnswers}</p>
                             <p>Total Questions: {scores.totalQuestions}</p>
+                            <p>
+                                {improvementTips[topic]?.strong.length > 0 &&
+                                    `You are strong in this topic. Focus on other areas.`}
+                                {improvementTips[topic]?.weak.length > 0 &&
+                                    `You need improvement in this topic. Practice more.`}
+                            </p>
                         </div>
                     ))}
                 </div>
