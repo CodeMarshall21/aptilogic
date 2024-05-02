@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc,getDoc } from 'firebase/firestore';
-import { app, auth, db } from '../../firebase';
+import {  auth, db } from '../../firebase';
 import { useUser } from '../UserContext';
 import "./Home.css"
 

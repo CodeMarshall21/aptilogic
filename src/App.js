@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home/Home';
-import Login from './pages/dump/Login';
 import TrainerDashboard from './pages/Trainer_dashboard/TrainerDashboard';
 import AssessmentCreation from './pages/Trainer_dashboard/AssessmentCreation';
 import StudentDashboard from './pages/Student_Dashboard/Student';
