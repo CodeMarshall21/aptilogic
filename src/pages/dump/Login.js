@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import  {app,auth,db}  from '../firebase';
+import  {app,auth,db}  from '../../firebase';
 import { collection, query, where, getDocs,doc,getDoc } from 'firebase/firestore';
 import { useEffect } from 'react';
-import { useUser } from './UserContext';
+import { useUser } from '../UserContext';
 
 // for ui
 import Box from '@mui/material/Box';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
-import { app, auth, db } from '../firebase';
+import { app, auth, db } from '../../firebase';
 
 // Material-UI components
 import Box from '@mui/material/Box';

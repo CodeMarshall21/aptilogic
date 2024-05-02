@@ -1,18 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import TrainerDashboard from './pages/TrainerDashboard';
-import AssessmentCreation from './pages/AssessmentCreation';
-import StudentDashboard from './pages/Student';
-import Assessment from './pages/Assessment'; // Import your Assessment component
+import Home from './pages/Home/Home';
+import Login from './pages/dump/Login';
+import TrainerDashboard from './pages/Trainer_dashboard/TrainerDashboard';
+import AssessmentCreation from './pages/Trainer_dashboard/AssessmentCreation';
+import StudentDashboard from './pages/Student_Dashboard/Student';
+import Assessment from './pages/Trainer_dashboard/Assessment'; // Import your Assessment component
 import { UserProvider } from './pages/UserContext';
-import MentorDashboard from './pages/MentorDashboard';
-import Analytics from './pages/Analytics';
+import MentorDashboard from './pages/Mentor_Dashboard/MentorDashboard';
+import Analytics from './pages/Student_Dashboard/Analytics';
 function App() {
     return (
-        <div className='cntainer'>
         <UserProvider>
 
         <BrowserRouter>
@@ -28,7 +27,6 @@ function App() {
             </Routes>
         </BrowserRouter>
         </UserProvider>
-        </div>
     );
 }
 

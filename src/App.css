@@ -108,12 +108,9 @@ body {
   } */
   /* Home.css */
   .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   
     height: 100vh;
-    background-color: black;
-    background-image: url('background.png.png'); /* Replace 'path_to_your_image.jpg' with the actual path to your background image */
+    background-color: rgb(255, 255, 255), 0, 0);
     background-size: cover;
     background-position: center;
   }

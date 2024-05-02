@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../firebase';
-import { useUser } from './UserContext';
+import { db } from '../../firebase';
+import { useUser } from '../UserContext';
 
 const Analytics = () => {
     const { assessmentId } = useParams();

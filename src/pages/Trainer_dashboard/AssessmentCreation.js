@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase'; // Assuming db is the initialized Firestore instance
+import { db } from '../../firebase'; // Assuming db is the initialized Firestore instance
 import { Button, TextField, Typography, Box } from '@mui/material';
 
 const TrainerAssessment = () => {
