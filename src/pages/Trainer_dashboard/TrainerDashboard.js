@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
