@@ -173,4 +173,59 @@ const LoginSignup = () => {
   );
 };
 
-export default LoginSignup;
+// export default LoginSignup;
+// // .container {
+//   max-width: 800px;
+//   margin: auto;
+//   padding: 20px;
+//   font-family: Arial, sans-serif;
+// }
+
+// h1 {
+//   text-align: center;
+//   color: var(--primary);
+// }
+
+// table {
+//   width: 100%;
+//   border-collapse: collapse;
+//   margin-bottom: 20px;
+// }
+
+// th, td {
+//   padding: 8px;
+//   border-bottom: 1px solid var(--secondary);
+//   text-align: left;
+// }
+
+// th {
+//   background-color: var(--secondary);
+// }
+
+// tr:nth-child(even) {
+//   background-color: #f0f0f0;
+// }
+
+// button {
+//   padding: 8px 16px;
+//   background-color: var(--primary);
+//   color: var(--secondary);
+//   border: none;
+//   border-radius: 5px;
+//   cursor: pointer;
+// }
+
+// button:hover {
+//   background-color: #03045E;
+// }
+
+// @media (max-width: 768px) {
+//   table {
+//     font-size: 12px;
+//   }
+
+//   button {
+//     font-size: 12px;
+//     padding: 6px 12px;
+//   }
+// }

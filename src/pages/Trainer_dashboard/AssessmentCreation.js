@@ -36,7 +36,7 @@ const TrainerAssessment = () => {
                 });
             });
 
-            console.log('Assessment created successfully');
+            alert('Assessment created successfully');
         } catch (error) {
             console.error('Error creating assessment: ', error);
         }

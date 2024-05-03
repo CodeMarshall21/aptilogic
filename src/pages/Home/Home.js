@@ -72,14 +72,14 @@ const LoginSignup = () => {
 
   return (
 
-    <div className='container'>
+    <div className='container bubbles'>
+    
       <div className='left'>
        <h1 className='head jersey-15-regular'>
        <span>Apti</span> <span>Logic</span>
       </h1>
-      <p className='content '>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo fuga dolorem aliquid veritatis itaque, modi hic dolorum soluta porro quos odit adipisci maiores nihil dignissimos vitae sint laboriosam placeat in? Ex neque ratione voluptatem architecto dolore, qui numquam cum reiciendis. Ducimus optio sint omnis eveniet possimus aspernatur! Incidunt, accusamus animi.
-      </p> 
+      <div className='typewriter'>
+      Unlock Your Potential, Excel with AptiLogic.  Register👉🏻</div>
        </div>
       <div className='right'>
      
