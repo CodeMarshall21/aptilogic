@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase'; // Assuming db is the initialized Firestore instance
-import { Button, TextField, Typography, Box } from '@mui/material';
+import './AssessmentCreation.css';
 
 const TrainerAssessment = () => {
     const [questions, setQuestions] = useState([]);
@@ -43,39 +43,29 @@ const TrainerAssessment = () => {
     };
 
     return (
-        <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography variant="h4" gutterBottom>
-                Trainer Assessment
-            </Typography>
-            <TextField
-                label="Title"
-                variant="outlined"
-                margin="normal"
-                fullWidth
+        <div className="trainer-assessment">
+            <h2 className="trainer-assessment-title assessment-head">Trainer Assessment</h2>
+            <input
+                className="trainer-assessment-textfield"
+                type="text"
+                placeholder="Title"
                 value={assessmentDetails.title}
                 onChange={(e) => setAssessmentDetails({ ...assessmentDetails, title: e.target.value })}
             />
-            <TextField
-                label="Description"
-                variant="outlined"
-                margin="normal"
-                multiline
-                rows={4}
-                fullWidth
-              
+            <textarea
+                className="trainer-assessment-textfield"
+                placeholder="Description"
+            rows={9}
                 value={assessmentDetails.description}
                 onChange={(e) => setAssessmentDetails({ ...assessmentDetails, description: e.target.value })}
             />
             {questions.map((question, index) => (
-                <Box key={index} border={1} borderRadius={5} padding={2} marginY={2}>
-                    <Typography variant="h6" gutterBottom>
-                        Question {index + 1}
-                    </Typography>
-                    <TextField
-                        label="Question Text"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
+                <div key={index} className="trainer-question-box">
+                    <h3 className="trainer-question-title">Question {index + 1}</h3>
+                    <input
+                        className="trainer-option-textfield"
+                        type="text"
+                        placeholder="Question Text"
                         value={question.questionText}
                         onChange={(e) => {
                             const newQuestions = [...questions];
@@ -84,12 +74,11 @@ const TrainerAssessment = () => {
                         }}
                     />
                     {question.options.map((option, optionIndex) => (
-                        <TextField
+                        <input
                             key={optionIndex}
-                            label={`Option ${optionIndex + 1}`}
-                            variant="outlined"
-                            margin="normal"
-                            fullWidth
+                            className="trainer-option-textfield"
+                            type="text"
+                            placeholder={`Option ${optionIndex + 1}`}
                             value={option}
                             onChange={(e) => {
                                 const newQuestions = [...questions];
@@ -98,11 +87,10 @@ const TrainerAssessment = () => {
                             }}
                         />
                     ))}
-                    <TextField
-                        label="Correct Answer"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
+                    <input
+                        className="trainer-option-textfield"
+                        type="text"
+                        placeholder="Correct Answer"
                         value={question.correctAnswer}
                         onChange={(e) => {
                             const newQuestions = [...questions];
@@ -110,11 +98,10 @@ const TrainerAssessment = () => {
                             setQuestions(newQuestions);
                         }}
                     />
-                    <TextField
-                        label="Topic"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
+                    <input
+                        className="trainer-option-textfield"
+                        type="text"
+                        placeholder="Topic"
                         value={question.topic}
                         onChange={(e) => {
                             const newQuestions = [...questions];
@@ -122,15 +109,15 @@ const TrainerAssessment = () => {
                             setQuestions(newQuestions);
                         }}
                     />
-                </Box>
+                </div>
             ))}
-            <Button variant="contained" onClick={addQuestion} style={{ marginBottom: 20 }}>
+            <button className="trainer-add-question-btn" onClick={addQuestion}>
                 Add Question
-            </Button>
-            <Button variant="contained" color="primary" onClick={saveAssessment}>
+            </button>
+            <button className="trainer-save-assessment-btn" onClick={saveAssessment}>
                 Save Assessment
-            </Button>
-        </Box>
+            </button>
+        </div>
     );
 };
 

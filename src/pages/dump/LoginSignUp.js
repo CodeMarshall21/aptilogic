@@ -229,3 +229,50 @@ const LoginSignup = () => {
 //     padding: 6px 12px;
 //   }
 // }
+
+
+/* 
+ .card{
+  transform:
+    perspective(800px)
+    rotateY(25deg) scale(0.9)
+    rotateX(10deg);
+  filter: blur(2px);
+  opacity: 0.5;
+  transition: 0.6s ease all;
+
+  &:hover {
+    transform:
+      perspective(800px)
+      rotateY(-15deg)
+      translateY(-50px)
+      rotateX(10deg)
+      scale(1);
+    filter: blur(0);
+    opacity: 1;
+  }
+}  */
+
+
+/* Add hover effects to buttons */
+
+
+/* 
+.card {
+  transform:
+    perspective(750px)
+    translate3d(0px, 0px, -250px)
+    rotateX(27deg)
+    scale(0.9, 0.9);
+  border-radius: 20px;
+  border: 5px solid #90E0EF;
+  ;
+  box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.2);
+  transition: 0.4s ease-in-out transform;
+
+  &:hover {
+    transform: translate3d(0px, 0px, -250px);
+  }
+} */
+
+
