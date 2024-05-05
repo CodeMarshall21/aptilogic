@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where,doc,getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useUser } from '../UserContext';
 import "./Analytics.css"; // Import your CSS file
@@ -10,25 +10,47 @@ const StudentAnalytics = () => {
     const { user } = useUser();
     const [assessmentScores, setAssessmentScores] = useState([]);
     const [improvementTips, setImprovementTips] = useState({});
-console.log("outside:",user)
-useEffect(() => {
+console.log("user:",user.uid)
+
+    
     const fetchAssessmentScores = async () => {
         if (!user || !user.uid) {
             return;
         }
+        console.log("inside useeffect")
 
-        const q = query(collection(db, 'scores'), where('userId', '==', user.uid));
-        const querySnapshot = await getDocs(q);
-        const fetchedScores = querySnapshot.docs.map(doc => doc.data());
-        setAssessmentScores(fetchedScores);
+        const userRef = doc(db, 'users', user.uid);
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            console.error('User document not found');
+            return;
+        }
+
+        const userData = userDoc.data();
+        if (!userData.scores || !Array.isArray(userData.scores)) {
+            console.error('User scores not found or not an array');
+            return;
+        }
+
+        const assessmentScores = userData.scores.filter(score => score.assessmentId === assessmentId);
+        setAssessmentScores(assessmentScores);
 
         // Analyze scores and provide improvement tips
-        const tips = analyzeScores(fetchedScores);
+        const tips = analyzeScores(assessmentScores);
         setImprovementTips(tips);
-    };
 
+ 
+       
+
+}
+
+useEffect(()=>{
+    console.log("Arjub")
+    console.log(user.uid)
+    if(user){
     fetchAssessmentScores();
-}, [user]);
+    }
+},[])
 
 
     const analyzeScores = (scores) => {

@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs , getDoc, query ,doc} from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useUser } from '../UserContext';
 import './Student.css'
 const StudentDashboard = () => {
     const [assessments, setAssessments] = useState([]);
     const { user } = useUser();
-
+    const [userData,setUserData]=useState("")
     useEffect(() => {
         const fetchAssessments = async () => {
+            const userRef = doc(db, 'users', user.uid);
+            // console.log("ref",userRef)
+            const userDoc = await getDoc(userRef);
+            // console.log("ref",userDoc)
+            const userData = userDoc.data();
+            console.log("ref",userData)
+            setUserData(userData)
             const q = query(collection(db, 'assessments'));
             const querySnapshot = await getDocs(q);
             const fetchedAssessments = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -22,7 +29,7 @@ const StudentDashboard = () => {
     return (
         <div className="student-dashboard">
             <div className="student-dashboard-title">
-                <h3>Welcome, {user ? user.username : 'Guest'}!</h3>
+                <h3>Welcome, {user ? userData.username : 'Guest'}!</h3>
                 <h4>Available Assessments</h4>
             </div>
             <div className="student-dashboard-assessments">
@@ -43,6 +50,7 @@ const StudentDashboard = () => {
                      </div>
                        
                     </div>
+                    
                 ))}
             </div>
         </div>

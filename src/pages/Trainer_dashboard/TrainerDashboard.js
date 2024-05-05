@@ -26,10 +26,10 @@ const TrainerDashboard = () => {
   return (
     <>
     <div>
-      <h2 className="trainer-head"> Trainer Dashboard </h2>
+      <h2 className="trainer-head-here"> Trainer Dashboard </h2>
       <div className="trainer-dashboard">
         <div className="trainer-dashboard-title">
-          <h4 className="trainer-head-2">Created Assessments</h4>
+          <h4 className="trainer-head-2-here">Created Assessments</h4>
         </div>
         <div className="trainer-dashboard-assessments">
           {assessments.map((assessment) => (
@@ -43,7 +43,7 @@ const TrainerDashboard = () => {
             </div>
           ))}
            <Link to="/create-assessment" style={{ textDecoration: "none" }}>
-        <button className="create-assessment-btn">
+        <button className="create-assessment-btn-here">
           <span class="text">Create Assessment</span>
         </button>   
       </Link>

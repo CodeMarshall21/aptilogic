@@ -22,9 +22,11 @@ const LoginSignup = () => {
         const user = userCredential.user;
 
         const userDoc = await getDoc(doc(db, 'users', user.uid));
+        setUser(user)
+        console.log(user)
         if (userDoc.exists()) {
             const userData = userDoc.data();
-            setUser(userData); // Set user data in context
+            // setUser(userData); // Set user data in context
             switch (userData.role) {
                 case 'Student':
                     navigate('/student-dashboard');
@@ -149,7 +151,7 @@ const LoginSignup = () => {
 
             <button className='form-submit' type="submit">Login</button>
           </form>
-          <p>Don't have an account? <button class='form-submit' onClick={toggleForm}>Sign up</button></p>
+          <p>Don't have an account? <button className='form-submit' onClick={toggleForm}>Sign up</button></p>
         </div>
       )}
     </div>
