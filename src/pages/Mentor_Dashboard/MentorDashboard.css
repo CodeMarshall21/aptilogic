@@ -73,7 +73,16 @@
     color: #fff; /* Text color for the button */
     font-size: 16px; /* Font size for the button */
 }
+.analytics-title{
+    font-size: 2rem;
+    font-family: "Luckiest Guy", cursive;
+    color: #03045E;
+    top: 10%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    left: 18%;
 
+}
 /* Responsive styles */
 @media only screen and (max-width: 768px) {
     .mentor-dashboard-container {
@@ -138,3 +147,50 @@
          border: 3px solid #03045E;
        } 
 }
+.analytics-title{
+    font-size: 2rem;
+    font-family: "Luckiest Guy", cursive;
+    color: #03045E;
+    top: 10%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    left: 18%;
+
+}
+.close-analytics-btn {
+    /* Change to 'absolute' if you want it relative to a parent container */
+    position: relative;
+    left: 8%;
+     transform: translateX(-50%); /* Center horizontally */
+     font-weight: bold;
+     color: white;
+     background-color: #00B4D8; /* Orange submit button color */
+     border: none;
+     padding: 10px 20px;
+     cursor: pointer;
+     border-radius: 25px;
+   }
+   
+   .close-analytics-btn:hover {
+     color: #03045E;
+     background-color: transparent; /* Darker orange on hover */
+     border: 3px solid #03045E;
+   } 
+   .view-analytics-btn {
+     /* Change to 'absolute' if you want it relative to a parent container */
+     /* position: relative;*/
+      left: 10%; 
+      font-weight: bold;
+      color: white;
+      background-color: #00B4D8; /* Orange submit button color */
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 25px;
+    }
+    
+    .view-analytics-btn:hover {
+      color: #03045E;
+      background-color: transparent; /* Darker orange on hover */
+      border: 3px solid #03045E;
+    } 
