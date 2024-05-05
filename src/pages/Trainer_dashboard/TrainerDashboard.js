@@ -25,7 +25,7 @@ const TrainerDashboard = () => {
 
   return (
     <>
-    <div>
+    <div className="trainer-overall">
       <h2 className="trainer-head-here"> Trainer Dashboard </h2>
       <div className="trainer-dashboard">
         <div className="trainer-dashboard-title">
@@ -42,17 +42,17 @@ const TrainerDashboard = () => {
               </div>
             </div>
           ))}
-           <Link to="/create-assessment" style={{ textDecoration: "none" }}>
-        <button className="create-assessment-btn-here">
-          <span class="text">Create Assessment</span>
-        </button>   
-      </Link>
+          
        
 
         </div>
        
       </div>
-      
+      <Link to="/create-assessment" style={{ textDecoration: "none" }}>
+        <button className="create-assessment-btn-here">
+          <span class="text">Create Assessment</span>
+        </button>   
+      </Link>
     </div>
    
     </>
