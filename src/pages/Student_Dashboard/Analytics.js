@@ -10,28 +10,26 @@ const StudentAnalytics = () => {
     const { user } = useUser();
     const [assessmentScores, setAssessmentScores] = useState([]);
     const [improvementTips, setImprovementTips] = useState({});
+console.log("outside:",user)
+useEffect(() => {
+    const fetchAssessmentScores = async () => {
+        if (!user || !user.uid) {
+            return;
+        }
 
-    useEffect(() => {
-        const fetchAssessmentScores = async () => {
-            if (!user) {
-                return;
-            }
+        const q = query(collection(db, 'scores'), where('userId', '==', user.uid));
+        const querySnapshot = await getDocs(q);
+        const fetchedScores = querySnapshot.docs.map(doc => doc.data());
+        setAssessmentScores(fetchedScores);
 
-            let q = query(collection(db, 'scores'), where('userId', '==', user.uid)); // Only fetch scores for the current user
-            if (assessmentId) {
-                q = query(q, where('assessmentId', '==', assessmentId));
-            }
-            const querySnapshot = await getDocs(q);
-            const fetchedScores = querySnapshot.docs.map(doc => doc.data());
-            setAssessmentScores(fetchedScores);
+        // Analyze scores and provide improvement tips
+        const tips = analyzeScores(fetchedScores);
+        setImprovementTips(tips);
+    };
 
-            // Analyze scores and provide improvement tips
-            const tips = analyzeScores(fetchedScores);
-            setImprovementTips(tips);
-        };
+    fetchAssessmentScores();
+}, [user]);
 
-        fetchAssessmentScores();
-    }, [user, assessmentId]);
 
     const analyzeScores = (scores) => {
         const tips = {};
