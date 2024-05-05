@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase';
-
+import "./MentorDashboard.css"
 const MentorDashboard = () => {
     const [assessments, setAssessments] = useState([]);
     const [selectedAssessmentId, setSelectedAssessmentId] = useState(null);
@@ -78,9 +78,9 @@ const MentorDashboard = () => {
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: 'auto', padding: '20px' }}>
-            <h1 style={{ textAlign: 'center' }}>Mentor Dashboard</h1>
-            <table style={{ width: '100%', marginBottom: '20px' }}>
+        <div className="mentor-dashboard-container">
+            <h1 className="analytics-title">Mentor Dashboard</h1>
+            <table className="dashboard-table">
                 <thead>
                     <tr>
                         <th>Assessment Title</th>
@@ -89,10 +89,10 @@ const MentorDashboard = () => {
                 </thead>
                 <tbody>
                     {assessments.map((assessment, index) => (
-                        <tr key={index} style={{ backgroundColor: selectedAssessmentId === assessment.id ? '#f0f0f0' : 'inherit' }}>
+                        <tr key={index} className={selectedAssessmentId === assessment.id ? 'selected-row' : 'normal-row'}>
                             <td>{assessment.title}</td>
                             <td>
-                                <button onClick={() => { fetchStudentScores(); handleViewAnalytics(assessment.id); }}>View Analytics</button>
+                                <button onClick={() => { fetchStudentScores(); handleViewAnalytics(assessment.id); }} className='view-analytics-btn'>View Analytics</button>
                             </td>
                         </tr>
                     ))}
@@ -100,9 +100,9 @@ const MentorDashboard = () => {
             </table>
             {selectedAssessmentId && (
                 <div>
-                    <h2>Total Analytics for Assessment {selectedAssessmentId}</h2>
-                    <button onClick={closeAnalytics}>Close</button>
-                    <table style={{ width: '100%' }}>
+                    <h2 className='analytics-title'>Overall Analytics</h2>
+                    <button onClick={closeAnalytics} className='close-analytics-btn'>Close</button>
+                    <table className="analytics-table">
                         <thead>
                             <tr>
                                 <th>Student Name</th>

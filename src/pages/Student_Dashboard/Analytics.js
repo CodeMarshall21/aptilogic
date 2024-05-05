@@ -1,11 +1,11 @@
-// StudentAnalytics.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useUser } from '../UserContext';
+import "./Analytics.css"; // Import your CSS file
 
-const Analytics = () => {
+const StudentAnalytics = () => {
     const { assessmentId } = useParams();
     const { user } = useUser();
     const [assessmentScores, setAssessmentScores] = useState([]);
@@ -56,21 +56,21 @@ const Analytics = () => {
     };
 
     return (
-        <div>
-            <h1>Assessment Analytics</h1>
-            <h2>{assessmentScores.length > 0 ? `Analytics for Assessment ${assessmentId}` : 'No Scores Available'}</h2>
+        <div className="analytics-container">
+            <h1 className='analytics-title'>Assessment Analytics</h1>
+            {/* <h2>{assessmentScores.length > 0 ? `Analytics for Assessment ${assessmentId}` : 'No Scores Available'}</h2> */}
             {assessmentScores.map((score, index) => (
-                <div key={index}>
+                <div key={index} className="attempt-container">
                     <h3>Attempt {index + 1}</h3>
                     <p>Score: {score.score}</p>
                     <h4>Topic-wise Scores:</h4>
                     {score.topicScores && Object.entries(score.topicScores).map(([topic, scores]) => (
-                        <div key={topic}>
+                        <div key={topic} className="topic-container">
                             <p>Topic: {topic}</p>
                             <p>Correct Answers: {scores.correctAnswers}</p>
                             <p>Wrong Answers: {scores.wrongAnswers}</p>
                             <p>Total Questions: {scores.totalQuestions}</p>
-                            <p>
+                            <p className="tip">
                                 {improvementTips[topic]?.strong.length > 0 &&
                                     `You are strong in this topic. Focus on other areas.`}
                                 {improvementTips[topic]?.weak.length > 0 &&
@@ -84,4 +84,4 @@ const Analytics = () => {
     );
 };
 
-export default Analytics;
+export default StudentAnalytics;

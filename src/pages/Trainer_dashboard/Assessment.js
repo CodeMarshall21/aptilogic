@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, doc, getDoc, getDocs, addDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
+import "./Assessment.css"
 
 const Assessment = () => {
     const { assessmentId } = useParams();
@@ -104,18 +105,18 @@ const Assessment = () => {
     }
 
     return (
-        <div>
-            <h1>{assessment.title}</h1>
-            <p>{assessment.description}</p>
+        <div className="assessment-container">
+            <h1 className="assessment-title">{assessment.title}</h1>
+            {/* <p>{assessment.description}</p> */}
             <h2>Questions</h2>
             {assessment.questions && assessment.questions.length > 0 ? (
                 <div>
                     {assessment.questions.map((question, index) => (
-                        <div key={index}>
-                            <p>{question.questionText}</p>
-                            <ul>
+                        <div key={index} className="question-container">
+                            <p className="question-text">{question.questionText}</p>
+                            <ul className="options-list">
                                 {question.options.map((option, optionIndex) => (
-                                    <li key={optionIndex}>
+                                    <li key={optionIndex} className="option">
                                         <label>
                                             <input
                                                 type="radio"
@@ -132,7 +133,7 @@ const Assessment = () => {
                         </div>
                     ))}
                     {score > 0 && <p>Score: {score}</p>}
-                    <button onClick={handleSubmit}>Submit</button>
+                    <button className="submit-button" onClick={handleSubmit}>Submit</button>
                     {isSubmitted && <p>Score submitted successfully!</p>}
                 </div>
             ) : (
@@ -140,6 +141,6 @@ const Assessment = () => {
             )}
         </div>
     );
-};
+}    
 
 export default Assessment;

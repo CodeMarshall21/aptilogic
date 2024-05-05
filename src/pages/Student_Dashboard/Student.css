@@ -11,6 +11,17 @@
   .student-dashboard-content {
     width: 50%;
   }
+  .student-dashboard-title{
+ 
+    font-size: 2rem;
+    font-family:'Courier New', Courier, monospace;
+    color: #03045E;
+    position: absolute;
+    top: 1%;
+    left: 18%;
+
+ 
+}
   .student-dashboard-title {
     font-size: 2rem;
     margin-bottom: 20px;
@@ -158,7 +169,7 @@
        font-weight: bolder;
         color: #03045E;
         position: absolute;
-        font-family: "Luckiest Guy", cursive;
+        font-family: 'Courier New', Courier, monospace;
 
         top: 10%;
         left: 15%;
