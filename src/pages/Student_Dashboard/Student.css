@@ -1,4 +1,4 @@
- .student-dashboard-container {
+ .student-dashboard {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,7 +28,6 @@
   }
   .student-dashboard-assessments {
     margin-bottom: 20px;
-    margin-top: 200px;
   }
     
   .student-dashboard-assessments h5 {
@@ -39,6 +38,7 @@
   .student-dashboard-assessments p {
     font-size: 1rem;
     margin-bottom: 10px;
+
   }
   
   .student-dashboard-button {
