@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# AptiLogic
+
+AptiLogic is a web application designed to help students **learn, practice, and test their aptitude skills**.  
+It provides interactive quizzes, practice modules, and performance tracking to make aptitude preparation effective and engaging.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+---
+
+## 🚀 Features
+
+- 📚 **Learn** aptitude concepts with structured lessons.  
+- 📝 **Practice** with topic-wise quizzes.  
+- 🎯 **Test Mode** for full-length aptitude exams.  
+- 📊 **Performance Analytics** to track progress and identify weak areas.  
+- 🔄 **Instant Feedback** with detailed explanations.  
+
+---
+
+## 📦 Available Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
+Runs the app in development mode.  
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The page reloads automatically when changes are made, and lint errors (if any) will show up in the console.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
 ### `npm test`
+Launches the test runner in interactive watch mode.  
+See more about [running tests](https://facebook.github.io/create-react-app/docs/running-tests).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
 ### `npm run build`
+Builds the app for production in the `build` folder.  
+It optimizes React for the best performance, minifies code, and generates hashed filenames for caching.  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Your app is now ready to be deployed!  
+See [deployment guide](https://facebook.github.io/create-react-app/docs/deployment).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
 ### `npm run eject`
+**⚠️ Warning: This is irreversible.**  
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If you need full control over the configuration (Webpack, Babel, ESLint, etc.), you can eject at any time.  
+All commands except `eject` will still work, but now you’re responsible for maintaining configs.  
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📖 Learn More
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- [React documentation](https://react.dev/)  
+- [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)  
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🌐 Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+You can deploy AptiLogic easily on platforms like:  
+- [Netlify](https://www.netlify.com/)  
+- [Vercel](https://vercel.com/)  
+- [GitHub Pages](https://pages.github.com/)  
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🛠 Future Enhancements
 
-### Analyzing the Bundle Size
+- Leaderboard system for competitive learning  
+- Adaptive testing with difficulty scaling  
+- Mobile app version for on-the-go practice  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 👨‍💻 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+We welcome contributions to improve AptiLogic!  
+If you’d like to contribute:
+1. Fork the repository  
+2. Create a new branch (`git checkout -b feature-name`)  
+3. Commit your changes (`git commit -m "Added feature-name"`)  
+4. Push to your branch (`git push origin feature-name`)  
+5. Open a Pull Request  
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 📜 License
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.  
+See the LICENSE file for more details.
